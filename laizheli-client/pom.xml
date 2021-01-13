@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>laizheli</artifactId>
-    <groupId>org.example</groupId>
+   <groupId>com.travel.laizheli</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -12,4 +12,33 @@
   <artifactId>laizheli-client</artifactId>
 
 
+  <dependencies>
+    <dependency>
+      <groupId>com.travel.laizheli</groupId>
+      <artifactId>laizheli-common</artifactId>
+      <version>${laizheli-common.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.travel.laizheli</groupId>
+      <artifactId>laizheli-security</artifactId>
+      <version>${laizheli-security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

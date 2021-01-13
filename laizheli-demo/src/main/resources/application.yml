@@ -9,7 +9,6 @@ spring:
     username: teamwork
     password: 123123123
 mybatis-plus:
-  configuration: null
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
