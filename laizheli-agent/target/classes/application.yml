@@ -1,10 +1,10 @@
 server:
-  port: 8083
+  port: 8082
 
 #spring 配置
 spring:
   application:
-    name: laizheli-admin
+    name: laizheli-agent
   profiles:
     active: dev  #默认开发环境
   servlet:

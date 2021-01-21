@@ -1,0 +1,9 @@
+#spring 配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://120.55.55.185:3306/teamwork?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: teamwork
+      password: 123123123
