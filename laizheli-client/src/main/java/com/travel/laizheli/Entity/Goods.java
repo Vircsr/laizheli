@@ -19,6 +19,12 @@ public class Goods {
      */
     @TableId(value = "id")
     private Integer id;
+    /**
+     * 1 国内游
+     * 2 周边游（有问题）
+     * 3 出境游
+     * 4 特价游
+     */
     private String type;
     private String name;
     private String supplierId;
@@ -41,6 +47,12 @@ public class Goods {
     private Double score;
     private Integer stock;
     private Integer alreadySold;
+    /**
+     * 商品状态：
+     * 1：未发布
+     * 2：已发布，未上架
+     * 3：已上架
+     */
     private String state;
     private Integer visits;
     private Date createTime;
