@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.travel.laizheli.mapper")
-public class ClientApplication {
+public class   ClientApplication {
     public static void main(String[] args) {
         SpringApplication.run(ClientApplication.class, args);
     }
