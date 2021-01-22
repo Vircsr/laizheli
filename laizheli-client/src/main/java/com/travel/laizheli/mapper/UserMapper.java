@@ -1,7 +1,7 @@
 package com.travel.laizheli.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.travel.laizheli.Entity.User;
+import com.travel.laizheli.entity.User;
 
 /**
  * 旅客用户mapper类

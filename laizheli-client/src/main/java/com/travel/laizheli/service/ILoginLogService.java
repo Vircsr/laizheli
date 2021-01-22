@@ -1,6 +1,6 @@
 package com.travel.laizheli.service;
 
-import com.travel.laizheli.Entity.LoginLog;
+import com.travel.laizheli.entity.LoginLog;
 
 /**
  * @author Nemo

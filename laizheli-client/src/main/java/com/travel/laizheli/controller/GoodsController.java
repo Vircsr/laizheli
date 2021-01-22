@@ -1,14 +1,12 @@
 package com.travel.laizheli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.travel.laizheli.Entity.Goods;
+import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.service.GoodsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.ResultSet;
 import java.util.List;
 
 /**

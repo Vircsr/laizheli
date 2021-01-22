@@ -1,6 +1,6 @@
 package com.travel.laizheli.service.impl;
 
-import com.travel.laizheli.Entity.LoginLog;
+import com.travel.laizheli.entity.LoginLog;
 import com.travel.laizheli.mapper.LoginLogMapper;
 import com.travel.laizheli.service.ILoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;

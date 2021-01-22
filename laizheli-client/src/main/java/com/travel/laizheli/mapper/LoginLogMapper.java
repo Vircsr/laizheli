@@ -1,7 +1,7 @@
 package com.travel.laizheli.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.travel.laizheli.Entity.LoginLog;
+import com.travel.laizheli.entity.LoginLog;
 
 /**
  * @author Nemo

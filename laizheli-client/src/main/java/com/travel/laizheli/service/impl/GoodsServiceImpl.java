@@ -3,7 +3,7 @@ package com.travel.laizheli.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.travel.laizheli.Entity.Goods;
+import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.mapper.GoodsMapper;
 import com.travel.laizheli.service.GoodsService;
 import org.springframework.stereotype.Service;

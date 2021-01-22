@@ -1,8 +1,7 @@
 package com.travel.laizheli.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.travel.laizheli.Entity.Goods;
+import com.travel.laizheli.entity.Goods;
 
 /**
  * 旅游商品service类

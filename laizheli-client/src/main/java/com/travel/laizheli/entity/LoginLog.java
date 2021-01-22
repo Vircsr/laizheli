@@ -1,4 +1,4 @@
-package com.travel.laizheli.Entity;
+package com.travel.laizheli.entity;
 
 
 import lombok.AllArgsConstructor;

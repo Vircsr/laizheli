@@ -1,8 +1,7 @@
 package com.travel.laizheli.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.travel.laizheli.Entity.Goods;
-import org.springframework.stereotype.Component;
+import com.travel.laizheli.entity.Goods;
 
 /**
  * 旅游项目mapper类

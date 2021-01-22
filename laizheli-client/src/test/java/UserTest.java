@@ -1,5 +1,5 @@
 //import com.travel.laizheli.ClientApplication;
-//import com.travel.laizheli.Entity.User;
+//import com.travel.laizheli.entity.User;
 //import com.travel.laizheli.mapper.UserMapper;
 //import org.junit.Assert;
 //import org.junit.Test;

@@ -2,12 +2,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.ClientApplication;
-import com.travel.laizheli.Entity.Goods;
+import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.mapper.GoodsMapper;
 import com.travel.laizheli.service.GoodsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 

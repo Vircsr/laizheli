@@ -1,7 +1,6 @@
 package com.travel.laizheli.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.travel.laizheli.Entity.User;
+import com.travel.laizheli.entity.User;
 
 /**
  * @author Nemo

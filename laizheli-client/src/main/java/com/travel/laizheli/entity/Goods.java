@@ -1,4 +1,4 @@
-package com.travel.laizheli.Entity;
+package com.travel.laizheli.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

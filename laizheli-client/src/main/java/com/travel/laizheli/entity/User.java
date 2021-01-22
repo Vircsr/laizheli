@@ -1,6 +1,5 @@
-package com.travel.laizheli.Entity;
+package com.travel.laizheli.entity;
 
-import cn.hutool.core.date.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

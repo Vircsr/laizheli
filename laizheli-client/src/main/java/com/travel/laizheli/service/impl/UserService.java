@@ -1,6 +1,6 @@
 package com.travel.laizheli.service.impl;
 
-import com.travel.laizheli.Entity.User;
+import com.travel.laizheli.entity.User;
 import com.travel.laizheli.mapper.UserMapper;
 import com.travel.laizheli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
