@@ -8,6 +8,7 @@
 # 。idea
 .idea/
 *.iml
+target/
 .svn/
 # BlueJ files
 *.ctxt
