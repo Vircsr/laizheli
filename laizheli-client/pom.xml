@@ -18,11 +18,11 @@
       <artifactId>laizheli-common</artifactId>
       <version>${laizheli-common.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.travel.laizheli</groupId>
-      <artifactId>laizheli-security</artifactId>
-      <version>${laizheli-security.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.travel.laizheli</groupId>-->
+<!--      <artifactId>laizheli-security</artifactId>-->
+<!--      <version>${laizheli-security.version}</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
