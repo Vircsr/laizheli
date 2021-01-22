@@ -20,10 +20,11 @@ public class GoodsServiceImpl implements GoodsService {
     GoodsMapper goodsMapper;
     @Override
     public IPage<Goods> getGoodsList(Integer current, Integer size, String type) {
+//      条件构造器
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type",type);
+//        分页设置
         Page<Goods> page = new Page<>(current,size);
-        IPage<Goods> result = goodsMapper.selectPage(page,queryWrapper);
-        return result;
+        return goodsMapper.selectPage(page,queryWrapper);
     }
 }
