@@ -1,10 +1,10 @@
 server:
-  port: 8021
+  port: 8082
 
 #spring 配置
 spring:
   application:
-    name: laizheli-client
+    name: laizheli-agent
   profiles:
     active: dev  #默认开发环境
   servlet:
@@ -16,5 +16,3 @@ mybatis-plus:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true

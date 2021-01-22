@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8023
 
 #spring 配置
 spring:
