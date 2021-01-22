@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.ClientApplication;
 import com.travel.laizheli.Entity.Goods;
 import com.travel.laizheli.mapper.GoodsMapper;
+import com.travel.laizheli.service.GoodsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import javax.annotation.Resource;
 public class PageTest {
     @Resource
     private GoodsMapper goodsMapper;
+    @Resource
+    private GoodsService goodsService;
 
     @Test
     public void printGoodsPage(){
@@ -30,7 +33,12 @@ public class PageTest {
         System.out.println("总页数：");
         System.out.println("总记录数：");
         result.getRecords().forEach(System.out::println);
-
-
     };
+
+    @Test
+    public void printServicePaege(){
+        System.out.println("-------------service page------------------------");
+        IPage<Goods> result = goodsService.getGoodsList(1,10, "1");
+        result.getRecords().forEach(System.out::println);
+    }
 }

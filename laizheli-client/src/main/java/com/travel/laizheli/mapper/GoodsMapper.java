@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
  * create by chen on 2021/1/21
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
+
 }
