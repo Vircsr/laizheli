@@ -1,0 +1,15 @@
+com\travel\laizheli\common\api\IErrorCode.class
+com\travel\laizheli\common\exception\Asserts.class
+com\travel\laizheli\common\service\impl\RedisServiceImpl.class
+com\travel\laizheli\common\exception\GlobalExceptionHandler.class
+com\travel\laizheli\common\domain\SwaggerProperties$SwaggerPropertiesBuilder.class
+com\travel\laizheli\common\log\WebLogAspect.class
+com\travel\laizheli\common\api\ResultCode.class
+com\travel\laizheli\common\util\RequestUtil.class
+com\travel\laizheli\common\api\CommonResult.class
+com\travel\laizheli\common\config\BaseSwaggerConfig.class
+com\travel\laizheli\common\exception\ApiException.class
+com\travel\laizheli\common\service\RedisService.class
+com\travel\laizheli\common\config\BaseRedisConfig.class
+com\travel\laizheli\common\domain\SwaggerProperties.class
+com\travel\laizheli\common\domain\WebLog.class
