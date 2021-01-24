@@ -5,10 +5,7 @@ import com.travel.laizheli.entity.Supplier;
 import com.travel.laizheli.service.SupplierService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName: SupplierController
@@ -26,9 +23,10 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody Supplier supplier)
+    public Result login(@RequestParam("name") String name,
+                        @RequestParam("password") String password)
     {
-        Supplier supplierGet = supplierService.getByName(supplier.getName(),supplier.getPassword());
+        Supplier supplierGet = supplierService.getByName(name,password);
         log.info("查询结果为"+supplierGet);
         if (supplierGet != null)
         {
