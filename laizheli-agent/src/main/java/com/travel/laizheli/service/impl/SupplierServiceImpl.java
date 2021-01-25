@@ -22,10 +22,17 @@ public class SupplierServiceImpl implements SupplierService {
     private SupplierMapper supplierMapper;
 
     @Override
-    public Supplier getByName(String name,String password) {
+    public Supplier getByNamePwd(String name,String password) {
         QueryWrapper<Supplier> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name",name);
         queryWrapper.eq("password",password);
+        return supplierMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public Supplier getByName(String name) {
+        QueryWrapper<Supplier> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name",name);
         return supplierMapper.selectOne(queryWrapper);
     }
 

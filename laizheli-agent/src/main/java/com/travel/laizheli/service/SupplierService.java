@@ -11,9 +11,13 @@ import com.travel.laizheli.entity.Supplier;
  **/
 public interface SupplierService {
 
-    Supplier getByName(String name,String password);
+    Supplier getByNamePwd(String name,String password);
+
+    Supplier getByName(String name);
 
     int addSupplier(Supplier supplier);
 
     int updateSupplier(Supplier supplier);
+
+
 }

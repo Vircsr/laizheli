@@ -9,34 +9,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @ClassName: Supplier
- * @Description: TODO
+ * @ClassName: LoginLog
+ * @Description: 登录日志实体
  * @Author: Wangcb
- * @Date: 2021/1/24 11:06
+ * @Date: 2021/1/25 21:02
  * @Version: 1.0
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Supplier {
-    @TableId(value = "id",type = IdType.ASSIGN_UUID)
-    private String id;
+public class LoginLog {
 
-    private String name;
-    private String password;
-    private String question1;
-    private String answer1;
-    private String question2;
-    private String answer2;
-    private String iconUrl;
-    private Date lastLoginTime;
-    private BigDecimal account;
-    private Integer state;
+    @TableId(value = "id",type = IdType.AUTO)
+    private Long id;
+
+    private String userId;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+
+    private String ip;
+    private String os;
+    private String browser;
+    private String system;
 }
