@@ -45,4 +45,11 @@ public class SupplierServiceImpl implements SupplierService {
     public int updateSupplier(Supplier supplier) {
         return supplierMapper.updateById(supplier);
     }
+
+    @Override
+    public Supplier getById(String id) {
+        QueryWrapper<Supplier> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        return supplierMapper.selectOne(queryWrapper);
+    }
 }

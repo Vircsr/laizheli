@@ -19,5 +19,7 @@ public interface SupplierService {
 
     int updateSupplier(Supplier supplier);
 
+    Supplier getById(String id);
+
 
 }

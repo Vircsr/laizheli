@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * @ClassName: MyMetaObjectHandler
- * @Description: 元对象处理器
+ * @Description: 元对象处理器,为了解决数据库字段自动填充问题
  * @Author: Wangcb
  * @Date: 2021/1/25 22:43
  * @Version: 1.0
