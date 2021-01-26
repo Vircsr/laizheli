@@ -1,19 +1,25 @@
 package com.travel.laizheli.controller;
 
+import cn.hutool.core.date.DateTime;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.entity.LoginLog;
 import com.travel.laizheli.entity.Supplier;
 import com.travel.laizheli.service.LoginLogService;
 import com.travel.laizheli.service.SupplierService;
+import com.travel.laizheli.util.FileUploadUtil;
 import com.travel.laizheli.util.IpUtil;
 import com.travel.laizheli.util.OsAndBrowserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @ClassName: SupplierController
@@ -33,7 +39,7 @@ public class SupplierController {
     @Autowired
     private LoginLogService loginLogService;
 
-//    登录
+    // 登录
     @PostMapping("/login")
     public Result login(@RequestParam("name") String name,
                         @RequestParam("password") String password)
@@ -48,7 +54,7 @@ public class SupplierController {
             return Result.failed(" 用户名和密码不匹配");
         }
     }
-//    注册
+    // 注册
     @PostMapping("/register")
     public Result register(@RequestBody Supplier supplier)
     {
@@ -65,7 +71,7 @@ public class SupplierController {
         }
     }
 
-    //    修改密码
+    // 修改密码
     @PostMapping("/updatepwd")
     public Result updatepwd(@RequestParam("name") String name,
                             @RequestParam("newPwd") String newpassword,
@@ -109,6 +115,44 @@ public class SupplierController {
         }else {
             log.error("日志添加错误");
             return Result.failed("服务器错误，登录日志添加失败");
+        }
+    }
+
+    @PostMapping("/lastLogin")
+    public Result updateLoginTime(@RequestParam("id")String id){
+        Supplier supplier = supplierService.getById(id);
+        supplier.setLastLoginTime(new Date());
+        int result = supplierService.updateSupplier(supplier);
+        if (result==1){
+            return Result.success(supplier,"上次登录时间写入成功");
+        }else {
+            return Result.failed("上次登录时间写入失败");
+        }
+    }
+
+    @PostMapping("/updateIcon")
+    public Result updateIcon(@RequestParam("id") String id,
+                             @RequestParam("updateIcon") String data) throws IOException {
+
+        if (data.length()==0){
+            log.error("上传文件为空");
+            return Result.failed("文件选择为空");
+        }
+        Supplier supplier = supplierService.getById(id);
+        // 生成文件名
+        String filename = UUID.randomUUID().toString()+".png";
+        // 将base64转成图片存起来
+        boolean generateImage = FileUploadUtil.generateImage(data, FileUploadUtil.getPath() + filename);
+        if (!generateImage){
+            log.error("base64转成图片失败");
+            return Result.failed("文件转存失败");
+        }
+        supplier.setIconUrl(filename);
+        int result = supplierService.updateSupplier(supplier);
+        if (result==1){
+            return Result.success(supplier,"头像修改成功");
+        }else {
+            return Result.failed("头像修改失败");
         }
     }
 }

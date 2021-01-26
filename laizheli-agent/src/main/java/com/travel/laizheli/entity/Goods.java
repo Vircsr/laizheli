@@ -1,0 +1,55 @@
+package com.travel.laizheli.entity;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * @ClassName: Goods
+ * @Description: TODO
+ * @Author: Wangcb
+ * @Date: 2021/1/26 20:39
+ * @Version: 1.0
+ **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Goods {
+
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
+    private String type;
+    private String name;
+    private String supplierId;
+    private String coverImageUrl;
+    private String detailImageUrl;
+    private String beginPlace;
+    private String endPlace;
+    private String acrossPlace;
+    private String serviceEnsure;
+    private String transport;
+    private Integer days;
+    private Date earliestDate;
+    private Date latestDate;
+    private BigDecimal adultPrice;
+    private BigDecimal childPrice;
+    private BigDecimal otherPrice;
+    private String characteristic;
+    private String costDescription;
+    private String attention;
+    private Double score;
+    private Integer stock;
+    private Integer sold;
+    private String state;
+    private Integer visits;
+
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+}
