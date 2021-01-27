@@ -37,7 +37,6 @@ public class GoodsController {
 
     @PostMapping("/detail")
     public Result<Goods> getGoodDetail(@RequestParam(value = "id") Integer id){
-
-        return Result.failed();
+        return Result.success(goodsService.getGoodsDetail(id));
     }
 }

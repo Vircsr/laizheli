@@ -1,10 +1,13 @@
 package com.travel.laizheli.entity;
 
+import cn.hutool.core.date.DateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -28,6 +31,13 @@ public class Goods {
     private String type;
     private String name;
     private String supplierId;
+    /**
+     * 非goods表中字段
+     * 通过supplierId字段联合查询supplier表中name字段
+     */
+    @TableField(exist = false)
+    private String supplierName;
+
     private String coverImageUrl;
     private String detailImageUrl;
     private String beginPlace;
@@ -55,6 +65,6 @@ public class Goods {
      */
     private String state;
     private Integer visits;
-    private Date createTime;
+    private DateTime createTime;
 
 }

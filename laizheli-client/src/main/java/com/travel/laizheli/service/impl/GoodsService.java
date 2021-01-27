@@ -20,6 +20,14 @@ import java.util.List;
 public class GoodsService implements IGoodsService {
     @Resource
     GoodsMapper goodsMapper;
+
+    /**
+     * 旅游项目列表
+     * @param current 当前页
+     * @param size 页面大小
+     * @param type 旅游项目类型
+     * @return 旅游项目列表
+     */
     @Override
     public IPage<GoodsList> getGoodsList(Integer current, Integer size, String type) {
 //      条件构造器
@@ -32,8 +40,7 @@ public class GoodsService implements IGoodsService {
 
     @Override
     public Goods getGoodsDetail(Integer id) {
-//        之后添加多表联合查询
-        return goodsMapper.selectById(id);
+        return goodsMapper.selectGoodsDetail(id);
     }
 
     /**
