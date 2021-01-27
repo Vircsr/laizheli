@@ -8,7 +8,17 @@ import com.travel.laizheli.entity.User;
  */
 public interface IUserService {
 
+    /**
+     * 通过id得到用户对象
+     * @param id
+     * @return
+     */
     User getUserById(String id);
 
+    /**
+     * 增加用户
+     * @param user
+     * @return
+     */
     int addUser(User user);
 }

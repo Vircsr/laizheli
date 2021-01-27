@@ -25,6 +25,11 @@ public class UserController {
     @Autowired
     private ILoginLogService loginLogService;
 
+    /**
+     * 每当用户登录的时候，添加用户信息
+     * @param user
+     * @return
+     */
     @PostMapping("/user")
     public Result addUser(@RequestBody User user) {
         User userById = userService.getUserById(user.getId());
@@ -44,6 +49,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 每当用户登录的时候，添加登录日志
+     * @param loginLog
+     * @return
+     */
     @PostMapping("/loginlog")
     public Result addLoginLog(@RequestBody LoginLog loginLog) {
 

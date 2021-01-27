@@ -8,5 +8,10 @@ import com.travel.laizheli.entity.LoginLog;
  */
 public interface ILoginLogService {
 
+    /**
+     * 添加登录日志
+     * @param loginLog
+     * @return
+     */
     int addLoginLog(LoginLog loginLog);
 }
