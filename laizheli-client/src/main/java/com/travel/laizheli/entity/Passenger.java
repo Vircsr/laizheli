@@ -3,7 +3,6 @@ package com.travel.laizheli.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.travel.laizheli.dto.PassengerDto;
-import com.travel.laizheli.service.impl.PassengerService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,7 @@ public class Passenger {
   private long id;
   private String name;
   private String phone;
-  private boolean sex;
+  private boolean type; // 旅客类别：false成人，true儿童
   private boolean self;
   private String userId;
   private Date createTime;
@@ -36,7 +35,7 @@ public class Passenger {
     this.id = passengerDto.getId();
     this.name = passengerDto.getName();
     this.phone = passengerDto.getPhone();
-    this.sex = passengerDto.isSex();
+    this.type = passengerDto.isType();
     this.self = passengerDto.isSelf();
     this.userId = passengerDto.getUserId();
     this.createTime = passengerDto.getCreateTime();

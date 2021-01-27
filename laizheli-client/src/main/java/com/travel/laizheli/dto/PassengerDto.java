@@ -23,7 +23,7 @@ public class PassengerDto {
     private long id;
     private String name;
     private String phone;
-    private boolean sex;
+    private boolean type;
     private boolean self;
     private String userId;
     private Date createTime;
@@ -40,7 +40,7 @@ public class PassengerDto {
         this.id = passenger.getId();
         this.name = passenger.getName();
         this.phone = passenger.getPhone();
-        this.sex = passenger.isSex();
+        this.type = passenger.isType();
         this.self = passenger.isSelf();
         this.userId = passenger.getUserId();
         this.createTime = passenger.getCreateTime();
