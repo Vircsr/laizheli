@@ -40,6 +40,6 @@ public class GoodsController {
         listCount.add(countRim);
         listCount.add(countOut);
         listCount.add(countSpecial);
-        return Result.success(listCount,"商品获取成功");
+        return Result.success(listCount,"商品数量获取成功");
     }
 }

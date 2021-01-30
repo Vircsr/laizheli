@@ -1,5 +1,9 @@
 package com.travel.laizheli.service;
 
+import com.travel.laizheli.entity.Orders;
+
+import java.util.List;
+
 /**
  * @ClassName: OrderService
  * @Description: 订单服务接口
@@ -10,4 +14,6 @@ package com.travel.laizheli.service;
 public interface OrderService {
 
     int getCount(String supplierId);
+
+    List<Orders> getByIdType(String supplierId,String type);
 }
