@@ -19,11 +19,11 @@ public class GoodsList {
     private String coverImageUrl;
     private String beginPlace;
     private String endPlace;
-    private String accrosPlace;
+    private String acrossPlace;
 //  多个字段使用逗号隔开
     private String serviceEnsure;
     private Double score;
-    private Integer alreadySold;
+    private Integer sold;
     private Integer days;
     private Date earliestDate;
 

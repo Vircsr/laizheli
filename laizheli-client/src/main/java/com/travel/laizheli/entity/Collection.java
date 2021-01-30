@@ -4,9 +4,11 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 收藏实体类
@@ -19,7 +21,8 @@ public class Collection {
     private Integer id;
     private String userId;
     private Integer goodsId;
-    private DateTime createTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private Date createTime;
 
     @TableField(exist = false)
     private String goodsName;

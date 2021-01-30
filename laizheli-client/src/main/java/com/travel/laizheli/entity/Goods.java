@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -42,12 +43,12 @@ public class Goods {
     private String detailImageUrl;
     private String beginPlace;
     private String endPlace;
-    private String accrosPlace;
+    private String acrossPlace;
     private String serviceEnsure;
     private String transport;
     private Integer days;
     private Date earliestDate;
-    private Date lastestDate;
+    private Date latestDate;
     private BigDecimal adultPrice;
     private BigDecimal childPrice;
     private BigDecimal otherExpense;
@@ -56,7 +57,7 @@ public class Goods {
     private String attention;
     private Double score;
     private Integer stock;
-    private Integer alreadySold;
+    private Integer sold;
     /**
      * 商品状态：
      * 1：未发布
@@ -65,6 +66,7 @@ public class Goods {
      */
     private String state;
     private Integer visits;
-    private DateTime createTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private Date createTime;
 
 }
