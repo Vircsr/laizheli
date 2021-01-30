@@ -1,8 +1,10 @@
 package com.travel.laizheli.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -20,11 +22,14 @@ public class GoodsList {
     private String beginPlace;
     private String endPlace;
     private String acrossPlace;
+    private String transport;
 //  多个字段使用逗号隔开
     private String serviceEnsure;
     private Double score;
     private Integer sold;
     private Integer days;
+    private BigDecimal adultPrice;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date earliestDate;
 
 }

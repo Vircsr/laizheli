@@ -47,12 +47,13 @@ public class Goods {
     private String serviceEnsure;
     private String transport;
     private Integer days;
-    private Date earliestDate;
-    private Date latestDate;
     private BigDecimal adultPrice;
     private BigDecimal childPrice;
     private BigDecimal otherExpense;
     private String characteristic;
+    private Integer schedulingId;
+    @TableField(exist = false)
+    private Scheduling scheduling;
     private String costDescription;
     private String attention;
     private Double score;
@@ -66,6 +67,11 @@ public class Goods {
      */
     private String state;
     private Integer visits;
+
+    @JsonFormat(pattern="MM-dd", timezone="GMT+8")
+    private Date earliestDate;
+    @JsonFormat(pattern="MM-dd", timezone="GMT+8")
+    private Date latestDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 

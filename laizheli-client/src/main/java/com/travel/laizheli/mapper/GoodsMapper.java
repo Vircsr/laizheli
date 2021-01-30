@@ -18,7 +18,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @param type 旅游项目类型
      * @return GoodList列表
      */
-    @Select("SELECT goods.id, goods.type, goods.`name`, supplier.`name` AS supplier_name, cover_image_url, begin_place, end_place, across_place, service_ensure, score,sold, days, earliest_date FROM goods LEFT JOIN supplier ON goods.supplier_id = supplier.id WHERE goods.type = #{type} ORDER BY goods.sold DESC")
+    @Select("SELECT goods.id, goods.type, goods.`name`, supplier.`name` AS supplier_name, cover_image_url, begin_place, end_place, across_place, transport, service_ensure, score,sold, days, adult_price, earliest_date FROM goods LEFT JOIN supplier ON goods.supplier_id = supplier.id WHERE goods.type = #{type} ORDER BY goods.sold DESC")
     IPage<GoodsList> selectGoodsPage(Page<GoodsList> goodsList,String type);
 
     /**
