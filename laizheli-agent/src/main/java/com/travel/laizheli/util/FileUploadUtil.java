@@ -27,7 +27,6 @@ public class FileUploadUtil {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(UUID.randomUUID());// 使用UUID避免重名
         stringBuilder.append(uploadFile.getOriginalFilename());//获取原文件名
-        log.info("新文件名为:"+stringBuilder.toString());
         return stringBuilder.toString();
     }
 
@@ -36,14 +35,13 @@ public class FileUploadUtil {
     **/        
     public static String getPath() throws FileNotFoundException {
         String rootPath = ResourceUtils.getURL("classpath:").getPath();
-        log.info("项目根路径为:"+rootPath);
         return rootPath+"static/image/upload/";
     }
 
     /**
      * @Description: 上传文件
     **/        
-    public static void uploadFile(MultipartFile uploadFile) throws IOException {
+    public static String uploadFile(MultipartFile uploadFile) throws IOException {
         String filename = FileUploadUtil.getFilename(uploadFile);
         String rootPath = FileUploadUtil.getPath();
         File upload = new File(rootPath,filename);
@@ -52,6 +50,7 @@ public class FileUploadUtil {
         }
         log.info("图片存储路径为:"+upload.getAbsolutePath());
         uploadFile.transferTo(upload);
+        return filename;
     }
 
     /**
