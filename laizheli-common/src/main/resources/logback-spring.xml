@@ -186,7 +186,7 @@
         <appender-ref ref="LOG_STASH_ERROR"/>
     </root>
 
-    <logger name=" com.travel.laizheli.common.log.WebLogAspect" level="DEBUG">
+    <logger name=" com.travel.laizheli.common.log.WebLogAspect" level="WARNING">
         <appender-ref ref="LOG_STASH_RECORD"/>
     </logger>
 

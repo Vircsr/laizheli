@@ -1,10 +1,14 @@
 package com.travel.laizheli.entity;
 
+import cn.hutool.core.date.DateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -28,25 +32,48 @@ public class Goods {
     private String type;
     private String name;
     private String supplierId;
+    /**
+     * 非goods表中字段
+     * 通过supplierId字段联合查询supplier表中name字段
+     */
+    @TableField(exist = false)
+    private String supplierName;
+
     private String coverImageUrl;
     private String detailImageUrl;
     private String beginPlace;
     private String endPlace;
-    private String accrosPlace;
+    private String acrossPlace;
     private String serviceEnsure;
     private String transport;
     private Integer days;
-    private Date earliestDate;
-    private Date lastestDate;
     private BigDecimal adultPrice;
     private BigDecimal childPrice;
     private BigDecimal otherExpense;
     private String characteristic;
+    private Integer schedulingId;
+    @TableField(exist = false)
+    private String general;
+    @TableField(exist = false)
+    private String sleep;
+    @TableField(exist = false)
+    private String scenery;
+    @TableField(exist = false)
+    private String breakfast;
+    @TableField(exist = false)
+    private String lunch;
+    @TableField(exist = false)
+    private String dinner;
+    @TableField(exist = false)
+    private String relax;
+    @TableField(exist = false)
+    private String schedulingAttention;
+
     private String costDescription;
     private String attention;
     private Double score;
     private Integer stock;
-    private Integer alreadySold;
+    private Integer sold;
     /**
      * 商品状态：
      * 1：未发布
@@ -55,6 +82,12 @@ public class Goods {
      */
     private String state;
     private Integer visits;
+
+    @JsonFormat(pattern="MM-dd", timezone="GMT+8")
+    private Date earliestDate;
+    @JsonFormat(pattern="MM-dd", timezone="GMT+8")
+    private Date latestDate;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 
 }
