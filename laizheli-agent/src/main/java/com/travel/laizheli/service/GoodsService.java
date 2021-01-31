@@ -1,5 +1,6 @@
 package com.travel.laizheli.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.travel.laizheli.entity.Goods;
 
 import java.util.List;
@@ -13,11 +14,17 @@ import java.util.List;
  **/
 public interface GoodsService {
 
-    List<Goods> getList(String suppilerId);
-
-    List<Goods> getByType(String supplierId,String type);
-
-    Goods getById(String supplierId,Integer id);
-
     int getCount(String supplierId,String type);
+
+    Goods getById(Integer goodsId);
+
+    IPage<Goods> getListByQuery(Integer current, Integer size, String goodsId, String supplierId, String name, String state);
+
+    int updateState(Goods goods);
+
+    int delete(Integer goodsId);
+
+    int addGoods(Goods goods);
+
+    int updateGoods(Goods goods);
 }

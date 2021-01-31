@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -25,7 +26,7 @@ import java.util.Date;
 public class Goods implements Serializable {
 
     @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     private String type;
     private String name;
     private String supplierId;
@@ -41,7 +42,7 @@ public class Goods implements Serializable {
     private Date latestDate;
     private BigDecimal adultPrice;
     private BigDecimal childPrice;
-    private BigDecimal otherPrice;
+    private BigDecimal otherExpense;
     private String characteristic;
     private String costDescription;
     private String attention;
@@ -50,7 +51,26 @@ public class Goods implements Serializable {
     private Integer sold;
     private String state;
     private Integer visits;
-
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+
+    public String getEarliestDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (earliestDate != null)
+        {
+            String earliest = sdf.format(earliestDate);
+            return earliest;
+        }
+        return null;
+    }
+
+    public String getLatestDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (latestDate != null)
+        {
+            String latest = sdf.format(latestDate);
+            return latest;
+        }
+        return null;
+    }
 }
