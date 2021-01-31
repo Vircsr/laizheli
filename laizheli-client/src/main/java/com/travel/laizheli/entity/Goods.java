@@ -53,7 +53,22 @@ public class Goods {
     private String characteristic;
     private Integer schedulingId;
     @TableField(exist = false)
-    private Scheduling scheduling;
+    private String general;
+    @TableField(exist = false)
+    private String sleep;
+    @TableField(exist = false)
+    private String scenery;
+    @TableField(exist = false)
+    private String breakfast;
+    @TableField(exist = false)
+    private String lunch;
+    @TableField(exist = false)
+    private String dinner;
+    @TableField(exist = false)
+    private String relax;
+    @TableField(exist = false)
+    private String schedulingAttention;
+
     private String costDescription;
     private String attention;
     private Double score;

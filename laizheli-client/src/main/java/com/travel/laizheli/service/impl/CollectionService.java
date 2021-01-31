@@ -26,7 +26,7 @@ public class CollectionService implements ICollectionService {
     }
 
     @Override
-    public IPage<Collection> collectionList(Integer userId, Integer current, Integer size) {
+    public IPage<Collection> collectionList(String userId, Integer current, Integer size) {
         Page<Collection> page  = new Page<Collection>(current,size);
         return collectionMapper.selectCollectionPage(page,userId);
     }

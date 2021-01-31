@@ -17,6 +17,6 @@ public interface HistoryMapper extends BaseMapper<History> {
      * @param id
      * @return
      */
-    @Select("SELECT history.*,goods.`name` AS goods_name FROM history LEFT JOIN goods ON goods.id = history.goods_id WHERE history.user_id = #{id}")
+    @Select("SELECT history.*,goods.`name` AS goods_name,goods.cover_image_url AS goods_cover_image_url FROM history LEFT JOIN goods ON goods.id = history.goods_id WHERE history.user_id = #{id}")
     IPage<History> selectHistoryPage(Page<History> page,String id);
 }

@@ -1,6 +1,7 @@
 package com.travel.laizheli.entity;
 
 import cn.hutool.core.date.DateTime;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,12 +18,14 @@ import java.util.Date;
 @Data
 @TableName("history")
 public class History {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
-    private String usrId;
+    private String userId;
     private Integer goodsId;
     @TableField(exist = false)
     private String goodsName;
+    @TableField(exist = false)
+    private String goodsCoverImageUrl;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 }

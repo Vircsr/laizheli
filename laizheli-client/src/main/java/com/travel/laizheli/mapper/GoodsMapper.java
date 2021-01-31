@@ -26,6 +26,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @param id goods标识id
      * @return goods详情内容
      */
-    @Select("SELECT t1.*,t2.`name` AS supplier_name FROM goods t1 LEFT JOIN supplier t2 ON t1.supplier_id = t2.id WHERE t1.id = #{id}")
+    @Select("SELECT t1.*,t2.`name` AS supplier_name, sc.general,sc.sleep,sc.scenery,sc.breakfast,sc.lunch,sc.dinner,sc.relax,sc.attention AS scheduling_attention FROM goods t1 LEFT JOIN supplier t2 ON t1.supplier_id = t2.id LEFT JOIN scheduling sc ON t1.scheduling_id = sc.id WHERE t1.id = #{id}")
     Goods selectGoodsDetail(Integer id);
 }

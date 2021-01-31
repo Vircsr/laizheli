@@ -39,7 +39,7 @@ public class CollectionController {
      * @return 收藏列表内容
      */
     @PostMapping("/list")
-    public Result collectionList(@RequestParam(value = "id") Integer userId,
+    public Result collectionList(@RequestParam(value = "id") String userId,
                                  @RequestParam(value = "pageNum",defaultValue = "1") Integer current,
                                  @RequestParam(value = "pageSize",defaultValue = "5") Integer size){
         return Result.success(collectionService.collectionList(userId,current,size));
