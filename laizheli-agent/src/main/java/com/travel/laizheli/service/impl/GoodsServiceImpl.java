@@ -59,9 +59,10 @@ public class GoodsServiceImpl implements GoodsService {
      * @Param: state   商品状态
     **/        
     @Override
-    public IPage<Goods> getListByQuery(Integer current,Integer size,String goodsId,String supplierId,String name,String state) {
+    public IPage<Goods> getListByQuery(Integer current,Integer size,String goodsId,String supplierId,String name,String state,String type) {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("supplier_id",supplierId);
+        queryWrapper.eq("type",type);
         if (!(goodsId =="")){
             queryWrapper.eq("id",Integer.parseInt(goodsId));
         }

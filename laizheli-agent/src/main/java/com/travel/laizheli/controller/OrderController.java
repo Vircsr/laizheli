@@ -6,6 +6,7 @@ import com.travel.laizheli.entity.result.ChartDay;
 import com.travel.laizheli.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -26,6 +27,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * @Description: 根据供应商ID获取订单总量
+     * @Param: supplierId 
+    **/        
     @GetMapping("/count")
     public Result getCount(@RequestParam("supplierId")String supplierId){
         if (supplierId.length()<=0){
@@ -35,6 +40,10 @@ public class OrderController {
         return Result.success(count,"成功获取订单总量");
     }
 
+    /**
+     * @Description: 获取一周的销量
+     * @Param: supplierId 
+    **/        
     @GetMapping("/chartDay")
     public Result getChartDay(@RequestParam("supplierId")String supplierId){
         if (supplierId.length()<=0){
@@ -103,6 +112,10 @@ public class OrderController {
         return Result.success(resultDay,"成功获取一周各商品销量");
     }
 
+    /**
+     * @Description: 获取近5个月的各类商品的销量
+     * @Param: supplierId 
+    **/        
     @GetMapping("/chartMonth")
     public Result getChartMonth(@RequestParam("supplierId")String supplierId){
         if (supplierId.length()<=0){
@@ -164,13 +177,109 @@ public class OrderController {
         listLabel.add((month-2+12)%12+1+"月");
         listLabel.add((month-1+12)%12+1+"月");
         listLabel.add(month+1+"月");
-
-
-
-
+        // 设置返回数据
         Map map = new HashMap();
         map.put("labels",listLabel);
         map.put("data",resultMonth);
         return Result.success(map,"成功获取各月各商品销量");
     }
+
+    /**
+     * @Description: 根据查询条件查询订单列表
+     * @Param: supplierId
+     * @Param: orderId
+     * @Param: goodsName
+     * @Param: contactName
+     * @Param: state
+     * @Param: userName
+     * @Param: current
+     * @Param: size 
+    **/        
+    @GetMapping("/get")
+    public Result getByQuery(@RequestParam("supplierId")String supplierId,
+                             @RequestParam("orderId")String orderId,
+                             @RequestParam("goodsName")String goodsName,
+                             @RequestParam("contactName")String contactName,
+                             @RequestParam("state")String state,
+                             @RequestParam("userName")String userName,
+                             @RequestParam("current")Integer current,
+                             @RequestParam("size")Integer size
+                             ){
+
+        Integer order;
+        Integer startIndex = (current-1)*size;
+        if (orderId==null || orderId==""){
+            order =null;
+        }else {
+            order = Integer.parseInt(orderId);
+        }
+        // 获取查询结果列表
+        List<Orders> ordersList = orderService.getByQuery(supplierId,order, goodsName, contactName, state, userName, startIndex, size);
+        // 获取查询结果长度
+        int count = orderService.getQueryCount(supplierId,order,goodsName,contactName,state,userName);
+        if (ordersList != null) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",ordersList);
+            map.put("total",count);
+            return Result.success(map,"成功获取订单列表");
+        }else {
+            return Result.failed("获取订单列表失败");
+        }
+    }
+
+    /**
+     * @Description: 更新订单状态信息
+     * @Param: orderId
+     * @Param: state 
+    **/        
+    @GetMapping("/updatestate")
+    public Result updateState(@RequestParam("orderId")String  orderId,
+                              @RequestParam("state")String state){
+        if (orderId == null && state == null){
+            return Result.validateFailed("获取订单ID失败");
+        }
+        Orders order = orderService.getById(Integer.parseInt(orderId));
+        if (order == null){
+            return Result.failed("获取订单失败");
+        }
+        order.setState(Integer.parseInt(state));
+        int result = orderService.update(order);
+        if (result != 1){
+            return Result.failed("更新失败");
+        }
+        return Result.success(null,"更新成功");
+    }
+
+    /**
+     * @Description: 删除订单
+     * @Param: orderId
+    **/
+    @GetMapping("/delete")
+    public Result delete(@RequestParam("orderId")Integer orderId){
+        if (orderId == null){
+            return Result.validateFailed("获取订单ID失败");
+        }
+        int result = orderService.deleteByid(orderId);
+        if (result != 1){
+            return Result.failed("删除失败");
+        }
+        return Result.success(null,"成功删除");
+    }
+
+    /**
+     * @Description: 更新订单信息
+     * @Param: orders 
+    **/        
+    @PostMapping("/update")
+    public Result updateOrder(@RequestBody Orders orders){
+        if (orders == null) {
+            return Result.validateFailed("获取订单信息失败");
+        }
+        int result = orderService.update(orders);
+        if (result != 1) {
+            return Result.failed("更新失败");
+        }
+        return Result.success(null,"成功更新");
+    }
+    
 }

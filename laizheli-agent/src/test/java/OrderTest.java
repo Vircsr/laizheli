@@ -2,12 +2,12 @@ import com.travel.laizheli.AgentApplication;
 import com.travel.laizheli.entity.Orders;
 import com.travel.laizheli.mapper.OrderMappper;
 import org.junit.Test;
-import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: OrderTest
@@ -35,5 +35,11 @@ public class OrderTest {
         int dateTwo = two.getCreateTime().getDate();
         System.out.println("two_date:"+dateTwo);
         System.out.println("one-day:"+dayOne+"   "+"two-day:"+dayTwo);
+    }
+
+    @Test
+    public void getOrders(){
+        List<Orders> get = orderMappper.getByQuery("111",null,null,null,"1","a",1,5);
+        System.out.println(get);
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.travel.laizheli.entity.Orders;
 import com.travel.laizheli.mapper.OrderMappper;
 import com.travel.laizheli.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +43,59 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> getByIdType(String supplierId, String type) {
         return orderMappper.getByIdType(supplierId,type);
     }
+
+    /**
+     * @Description: 根据查询条件查询订单列表
+     * @Param: supplierId
+     * @Param: orderId
+     * @Param: goodsName
+     * @Param: contactName
+     * @Param: state 
+    **/        
+    @Override
+    public List<Orders> getByQuery(String supplierId, Integer orderId, String goodsName, String contactName, String state,String userName,Integer startIndex,Integer size) {
+
+        return orderMappper.getByQuery(supplierId,orderId,goodsName,contactName,state,userName,startIndex,size);
+    }
+
+    /**
+     * @Description: 根据查询条件查到的列表长度
+     * @Param: supplierId
+     * @Param: orderId
+     * @Param: goodsName
+     * @Param: contactName
+     * @Param: state
+    **/
+    @Override
+    public int getQueryCount(String supplierId, Integer orderId, String goodsName, String contactName, String state,String userName) {
+        return orderMappper.getQueryCount(supplierId, orderId, goodsName, contactName,state,userName);
+    }
+
+    /**
+     * @Description: 更新订单信息
+     * @Param: orders 
+    **/        
+    @Override
+    public int update(Orders orders) {
+        return orderMappper.updateById(orders);
+    }
+
+    /**
+     * @Description: 根据ID获取订单
+     * @Param: id
+    **/
+    @Override
+    public Orders getById(Integer id) {
+        return orderMappper.selectById(id);
+    }
+
+    /**
+     * @Description: 删除订单
+     * @Param: id
+    **/
+    @Override
+    public int deleteByid(Integer id) {
+        return orderMappper.deleteById(id);
+    }
+
 }

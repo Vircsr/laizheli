@@ -18,7 +18,7 @@ public interface GoodsService {
 
     Goods getById(Integer goodsId);
 
-    IPage<Goods> getListByQuery(Integer current, Integer size, String goodsId, String supplierId, String name, String state);
+    IPage<Goods> getListByQuery(Integer current, Integer size, String goodsId, String supplierId, String name, String state, String type);
 
     int updateState(Goods goods);
 

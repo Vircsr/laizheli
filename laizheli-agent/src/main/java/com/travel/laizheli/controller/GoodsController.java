@@ -64,6 +64,7 @@ public class GoodsController {
     @GetMapping("/query")
     public Result getListByQuery(@RequestParam("supplierId")String supplierId,
                                  @RequestParam("goodsId")String goodsId,
+                                 @RequestParam("type")String type,
                                  @RequestParam("current")Integer current,
                                  @RequestParam("size")Integer size,
                                  @RequestParam("name")String name,
@@ -71,7 +72,7 @@ public class GoodsController {
         if (supplierId.length()<=0){
             return Result.validateFailed("获取供应商ID失败");
         }
-        IPage<Goods> listByQuery = goodsService.getListByQuery(current, size, goodsId, supplierId, name, state);
+        IPage<Goods> listByQuery = goodsService.getListByQuery(current, size, goodsId, supplierId, name, state, type);
         return Result.success(listByQuery,"成功获取商品列表");
     }
 

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -30,12 +31,20 @@ public class Orders implements Serializable {
     private Integer adultSum;
     private Integer childSum;
     private Integer contactId;
-    private Integer passengerId;
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
     private Integer state;
     private Double totalPrice;
     private Double discount;
     private String startDate;
+    private Integer helpNum;
+    @TableField(exist = false)
+    private String userName;
+    @TableField(exist = false)
+    private String goodsName;
+    @TableField(exist = false)
+    private String contactName;
+    @TableField(exist = false)
+    private String contactPhone;
 
 }

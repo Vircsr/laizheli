@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.laizheli.mapper.OrderMappper">
+    <select id="getByQuery" resultType="com.travel.laizheli.entity.Orders">
+        select o.*,u.name as userName,g.name as goodsName,c.name as contactName,c.phone as contactPhone
+        from orders o join goods g on o.goods_id = g.id
+        join user u on o.user_id = u.id
+        join contact c on o.contact_id = c.id
+                    where o.supplier_id = #{supplierId}
+                    <if test="orderId !=null and orderId != ''">
+                        and o.id = #{orderId}
+                    </if>
+                    <if test="goodsName !=null and goodsName != ''">
+                        and g.name like '%${goodsName}%'
+                    </if>
+                    <if test="contactName !=null and contactName != ''">
+                        and c.name like '%${contactName}%'
+                    </if>
+                    <if test="state !=null and state != ''">
+                        and o.state = #{state}
+                    </if>
+                    <if test="userName !=null and userName != ''">
+                        and u.name like '%${userName}%'
+                    </if>
+                    limit #{startIndex},#{size}
+    </select>
+    <select id="getQueryCount" resultType="int">
+        select count(*) from orders o join goods g on o.goods_id = g.id
+        join user u on o.user_id = u.id
+        join contact c on o.contact_id = c.id
+        where o.supplier_id = #{supplierId}
+        <if test="orderId !=null and orderId != ''">
+            and o.id = #{orderId}
+        </if>
+        <if test="goodsName !=null and goodsName != ''">
+            and g.name like '%${goodsName}%'
+        </if>
+        <if test="contactName !=null and contactName != ''">
+            and c.name like '%${contactName}%'
+        </if>
+        <if test="state !=null and state != ''">
+            and o.state = #{state}
+        </if>
+        <if test="userName !=null and userName != ''">
+            and u.name like '%${userName}%'
+        </if>
+    </select>
+</mapper>
