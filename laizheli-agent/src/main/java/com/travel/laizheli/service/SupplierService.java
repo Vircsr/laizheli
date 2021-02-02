@@ -21,5 +21,7 @@ public interface SupplierService {
 
     Supplier getById(String id);
 
+    int updateAccount(Supplier supplier);
+
 
 }

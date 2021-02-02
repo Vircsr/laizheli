@@ -52,4 +52,9 @@ public class SupplierServiceImpl implements SupplierService {
         queryWrapper.eq("id",id);
         return supplierMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public int updateAccount(Supplier supplier) {
+        return supplierMapper.updateById(supplier);
+    }
 }

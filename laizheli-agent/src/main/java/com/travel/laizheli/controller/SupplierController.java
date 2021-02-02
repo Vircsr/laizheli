@@ -118,6 +118,10 @@ public class SupplierController {
         }
     }
 
+    /**
+     * @Description: 更新上次登录时间
+     * @Param: id 
+    **/        
     @PostMapping("/lastLogin")
     public Result updateLoginTime(@RequestParam("id")String id){
         Supplier supplier = supplierService.getById(id);
@@ -130,6 +134,11 @@ public class SupplierController {
         }
     }
 
+    /**
+     * @Description: 更换头像
+     * @Param: id
+     * @Param: data 
+    **/        
     @PostMapping("/updateIcon")
     public Result updateIcon(@RequestParam("id") String id,
                              @RequestParam("updateIcon") String data) throws IOException {
@@ -154,5 +163,22 @@ public class SupplierController {
         }else {
             return Result.failed("头像修改失败");
         }
+    }
+
+    @GetMapping("/cash")
+    public Result updateAccount(@RequestParam("supplierID")String supplierId){
+        if (supplierId == null){
+            return Result.validateFailed("获取供应商ID失败");
+        }
+        Supplier supplier = supplierService.getById(supplierId);
+        if (supplier == null){
+            return Result.failed("用户不存在");
+        }
+        supplier.setAccount(new BigDecimal(0));
+        int result = supplierService.updateSupplier(supplier);
+        if (result != 1){
+            return Result.failed("提现失败");
+        }
+        return Result.success(null,"提现成功");
     }
 }

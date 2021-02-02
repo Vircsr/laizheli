@@ -62,15 +62,17 @@ public class GoodsServiceImpl implements GoodsService {
     public IPage<Goods> getListByQuery(Integer current,Integer size,String goodsId,String supplierId,String name,String state,String type) {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("supplier_id",supplierId);
-        queryWrapper.eq("type",type);
-        if (!(goodsId =="")){
+        if (!(goodsId =="" || goodsId == null)){
             queryWrapper.eq("id",Integer.parseInt(goodsId));
         }
-        if (!(name =="")){
+        if (!(name =="" || name == null)){
             queryWrapper.like("name",name);
         }
-        if (!(state=="")){
+        if (!(state=="" || state == null)){
             queryWrapper.eq("state",state);
+        }
+        if (!(type =="" || type == null)){
+            queryWrapper.eq("type",type);
         }
         Page<Goods> page = new Page<>(current,size);
         return goodsMapper.selectPage(page,queryWrapper);

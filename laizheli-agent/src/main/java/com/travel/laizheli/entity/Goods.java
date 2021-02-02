@@ -26,7 +26,7 @@ import java.util.Date;
 public class Goods implements Serializable {
 
     @TableId(value = "id",type = IdType.AUTO)
-    private Long id;
+    private Integer id;
     private String type;
     private String name;
     private String supplierId;
@@ -53,6 +53,8 @@ public class Goods implements Serializable {
     private Integer visits;
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+    @TableField(exist = false)
+    private Integer comments;
 
     public String getEarliestDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

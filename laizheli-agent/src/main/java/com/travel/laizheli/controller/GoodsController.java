@@ -2,8 +2,10 @@ package com.travel.laizheli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.travel.laizheli.common.api.Result;
+import com.travel.laizheli.entity.Comment;
 import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Scheduling;
+import com.travel.laizheli.service.CommentService;
 import com.travel.laizheli.service.GoodsService;
 import com.travel.laizheli.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,9 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * @Description: 获取各类商品的总数
@@ -73,6 +78,32 @@ public class GoodsController {
             return Result.validateFailed("获取供应商ID失败");
         }
         IPage<Goods> listByQuery = goodsService.getListByQuery(current, size, goodsId, supplierId, name, state, type);
+        return Result.success(listByQuery,"成功获取商品列表");
+    }
+
+    /**
+     * @Description: 查询商品列表，商品中包含了商品评论数量comments
+     * @Param: supplierId
+     * @Param: goodsId
+     * @Param: current
+     * @Param: size
+     * @Param: name
+     **/
+    @GetMapping("/queryc")
+    public Result getGoodsComments(@RequestParam("supplierId")String supplierId,
+                                   @RequestParam("goodsId")String goodsId,
+                                   @RequestParam("current")Integer current,
+                                   @RequestParam("size")Integer size,
+                                   @RequestParam("name")String name){
+        if (supplierId.length()<=0){
+            return Result.validateFailed("获取供应商ID失败");
+        }
+        IPage<Goods> listByQuery = goodsService.getListByQuery(current, size, goodsId, supplierId, name, null, null);
+        if (listByQuery != null) {
+            for (Goods record : listByQuery.getRecords()) {
+                record.setComments(commentService.getCount(record.getId()));
+            }
+        }
         return Result.success(listByQuery,"成功获取商品列表");
     }
 
@@ -127,6 +158,10 @@ public class GoodsController {
         return Result.success(filename,"图片上传成功");
     }
 
+    /**
+     * @Description: 添加商品
+     * @Param: goods 
+    **/        
     @PostMapping("/add")
     public Result addGoods(@RequestBody Goods goods){
         if (goods == null) {
@@ -148,6 +183,10 @@ public class GoodsController {
         }
     }
 
+    /**
+     * @Description: 更新商品信息
+     * @Param: goods 
+    **/        
     @PostMapping("/update")
     public Result updateGoods(@RequestBody Goods goods){
         if (goods == null) {
@@ -160,5 +199,8 @@ public class GoodsController {
             return Result.failed("更新商品信息失败");
         }
     }
+
+
+
     
 }

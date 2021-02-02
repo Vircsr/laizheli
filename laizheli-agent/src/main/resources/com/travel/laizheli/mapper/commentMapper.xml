@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.laizheli.mapper.CommentMapper">
+    <select id="getList" resultType="com.travel.laizheli.entity.Comment">
+        select c.*,u.name as userName,g.name as goodsName from comment c
+                                join user u on c.user_id = u.id
+                                join goods g on c.goods_id = g.id
+                    where c.goods_id = #{goodsId}
+                    <if test="userName !=null and userName != ''">
+                        and u.name = #{userName}
+                    </if>
+                    <if test="content !=null and content != ''">
+                        and c.content like '%${content}%'
+                    </if>
+                    limit #{startIndex},#{size}
+    </select>
+    <select id="getCountByQuery" resultType="int">
+        select count(*) from comment c
+                join user u on c.user_id = u.id
+                join goods g on c.goods_id = g.id
+                where c.goods_id = #{goodsId}
+                <if test="userName !=null and userName != ''">
+                    and u.name = #{userName}
+                </if>
+                <if test="content !=null and content != ''">
+                    and c.content like '%${content}%'
+                </if>
+    </select>
+</mapper>
