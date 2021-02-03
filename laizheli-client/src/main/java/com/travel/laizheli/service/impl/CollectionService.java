@@ -1,6 +1,7 @@
 package com.travel.laizheli.service.impl;
 
 import cn.hutool.core.date.DateTime;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.entity.Collection;
@@ -31,8 +32,25 @@ public class CollectionService implements ICollectionService {
         return collectionMapper.selectCollectionPage(page,userId);
     }
 
+    /**
+     * 根据收藏id列表删除对应收藏
+     * @param idList
+     * @return
+     */
     @Override
     public Integer deleteCollectionList(List<Integer> idList) {
         return collectionMapper.deleteBatchIds(idList);
+    }
+
+    /**
+     * 根据用户id获取收藏总数
+     * @param userId
+     * @return
+     */
+    @Override
+    public Integer getCollectionCount(String userId) {
+        QueryWrapper<Collection> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",userId);
+        return collectionMapper.selectCount(wrapper);
     }
 }

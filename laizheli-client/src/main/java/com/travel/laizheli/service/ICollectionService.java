@@ -13,4 +13,5 @@ public interface ICollectionService {
     Integer addCollection(Collection collection);
     IPage<Collection> collectionList(String userId, Integer current, Integer size);
     Integer deleteCollectionList(List<Integer> idList);
+    Integer getCollectionCount(String userId);
 }

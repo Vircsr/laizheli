@@ -50,4 +50,14 @@ public class HistoryController {
                                  @RequestParam(value = "pageSize",defaultValue = "5") Integer size){
         return Result.success(historyService.getHistoryList(current,size,userId));
     }
+
+    /**
+     * 获取个人浏览历史总条数
+     * @param userId
+     * @return
+     */
+    @PostMapping("/count")
+    public Integer countHistory(@RequestParam(value = "id") String userId){
+        return historyService.getHistoryCount(userId);
+    }
 }

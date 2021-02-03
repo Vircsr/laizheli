@@ -58,4 +58,14 @@ public class CollectionController {
             return Result.failed();
         }
     }
+
+    /**
+     * 获取个人收藏总条数
+     * @param userId
+     * @return
+     */
+    @PostMapping("/count")
+    public Integer countCollection(@RequestParam(value = "id")String userId){
+        return collectionService.getCollectionCount(userId);
+    }
 }
