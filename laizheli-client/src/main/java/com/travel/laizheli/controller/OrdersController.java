@@ -3,6 +3,7 @@ package com.travel.laizheli.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.common.api.Result;
+import com.travel.laizheli.dto.NoticeInfo;
 import com.travel.laizheli.entity.Orders;
 import com.travel.laizheli.service.IOrdersService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -109,6 +109,49 @@ public class OrdersController {
         } else {
             return Result.failed();
         }
+    }
+
+    /**
+     * 消息提醒，获取前一周内出发的日期
+     * @param userId
+     * @return
+     */
+    @PostMapping("/notice")
+    public List<Orders> getNotice(@RequestParam(value = "id") String userId){
+        Date now = new Date();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(now);
+        ca.add(Calendar.DATE,7);
+        Date aWeek = ca.getTime();
+        QueryWrapper<Orders> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",userId).between("start_date",now,aWeek);
+        return ordersService.getBaseMapper().selectList(wrapper);
+    }
+    /**
+     * 消息提醒，获取前一周内出发的日期
+     * @param userId
+     * @return
+     */
+    @PostMapping("/notice/count")
+    public Integer getNoticeCount(@RequestParam(value = "id") String userId){
+        Date now = new Date();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(now);
+        ca.add(Calendar.DATE,7);
+        Date aWeek = ca.getTime();
+        QueryWrapper<Orders> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",userId).between("start_date",now,aWeek);
+        return ordersService.getBaseMapper().selectCount(wrapper);
+    }
+
+    @PostMapping("/notice/list")
+    public List<NoticeInfo> getNoticeList(@RequestParam(value = "id") String userId){
+        Date now = new Date();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(now);
+        ca.add(Calendar.DATE,7);
+        Date aWeek = ca.getTime();
+        return ordersService.selectNoticeList(userId,now,aWeek);
     }
 
 }
