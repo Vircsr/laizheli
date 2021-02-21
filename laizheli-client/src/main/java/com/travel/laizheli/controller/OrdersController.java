@@ -4,8 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.dto.NoticeInfo;
+import com.travel.laizheli.dto.OrderListDto;
+import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Orders;
+import com.travel.laizheli.entity.Supplier;
+import com.travel.laizheli.service.IGoodsService;
 import com.travel.laizheli.service.IOrdersService;
+import com.travel.laizheli.service.ISupplierService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +30,10 @@ public class OrdersController {
 
     @Autowired
     private IOrdersService ordersService;
+    @Autowired
+    private IGoodsService goodsService;
+    @Autowired
+    private ISupplierService supplierService;
 
     /**
      * 查询属于该用户的所有订单信息
@@ -32,9 +41,13 @@ public class OrdersController {
      * @return
      */
     @GetMapping("/orders/{userId}")
-    public Result getOrdersByuserIdAnd(Page<Orders> page, @PathVariable String userId,
+    public Result getOrdersByUserIdAndState(Page<Orders> page, @PathVariable String userId,
                                        @RequestParam(defaultValue = "0") int state) {
+        // 特别注意：这里没有使用分页，到时候全写完再加好了
         page.setSize(30);
+//        Page<OrderDto> orderDtoPage = new Page<>();
+        List<OrderListDto> orderListDtos = new ArrayList<>();
+
         QueryWrapper queryWrapper = new QueryWrapper();
         Map map = new HashMap();
         map.put("user_id", userId);
@@ -43,11 +56,30 @@ public class OrdersController {
             map.put("state", state);
         }
         queryWrapper.allEq(map);
+        // 1. 找到对应的订单
         Page<Orders> ordersPage = ordersService.page(page, queryWrapper);
+        ordersPage.getRecords().forEach(orders -> {
+            // 2. 通过订单中的商品id找到对应的商品信息
+            long goodsId = orders.getGoodsId();
+            Integer goodsIdInteger = new Integer((int)goodsId);
+            Goods goodsDetail = goodsService.getGoodsDetail(goodsIdInteger);
 
-        log.info(ordersPage.toString());
-        if (ordersPage != null) {
-            return Result.success(ordersPage);
+            // 3. 通过订单中的供应商id找到对应的供应商名称
+            String supplierId = orders.getSupplierId();
+            Supplier supplierById = supplierService.getById(supplierId);
+            String supplierByIdName = supplierById.getName();
+
+            // 组合
+            OrderListDto orderListDto = new OrderListDto(orders, goodsDetail, supplierByIdName);
+            orderListDtos.add(orderListDto);
+        });
+
+//        orderDtoPage.setRecords(orderDtos);
+
+//        log.info("-------------------传输信息：" + orderDtoPage.getRecords().toString());
+        if (orderListDtos != null) {
+            orderListDtos.forEach(System.out::println);
+            return Result.success(orderListDtos);
         } else {
             return Result.failed();
         }
@@ -82,8 +114,21 @@ public class OrdersController {
 
         Orders orderById = ordersService.getById(id);
 
-        if (orderById != null) {
-            return Result.success(orderById);
+        // 2. 通过订单中的商品id找到对应的商品信息
+        long goodsId = orderById.getGoodsId();
+        Integer goodsIdInteger = new Integer((int)goodsId);
+        Goods goodsDetail = goodsService.getGoodsDetail(goodsIdInteger);
+
+        // 3. 通过订单中的供应商id找到对应的供应商名称
+        String supplierId = orderById.getSupplierId();
+        Supplier supplierById = supplierService.getById(supplierId);
+        String supplierByIdName = supplierById.getName();
+
+        // 组合
+        OrderListDto orderListDto = new OrderListDto(orderById, goodsDetail, supplierByIdName);
+
+        if (orderListDto != null) {
+            return Result.success(orderListDto);
         } else {
             return Result.failed();
         }
@@ -91,9 +136,9 @@ public class OrdersController {
 
 
     /**
-     * 修改联系人，因为参数联系人中已经包含了id信息了，所以无需id
+     * 修改订单状态：
      * @param id
-     * @param state
+     * @param state 订单状态：1待付款，2待接单，3待出行，4已出行，5退款中，6已退款，7已取消
      * @return
      */
     @PutMapping("/order/{id}/{state}")
