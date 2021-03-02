@@ -165,6 +165,10 @@ public class SupplierController {
         }
     }
 
+    /**
+     * @Description: 提现
+     * @Param: supplierId 
+    **/        
     @GetMapping("/cash")
     public Result updateAccount(@RequestParam("supplierID")String supplierId){
         if (supplierId == null){

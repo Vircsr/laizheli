@@ -3,6 +3,7 @@ package com.travel.laizheli.controller;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.entity.Qualification;
 import com.travel.laizheli.service.QualificationService;
+import com.travel.laizheli.util.AliyunOSSUtil;
 import com.travel.laizheli.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.data.redis.connection.ReactiveSubscription;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @ClassName: QualificationController
@@ -52,8 +55,12 @@ public class QualificationController {
         if (multipartFile==null){
             return Result.validateFailed("获取文件错误,请重新选择文件");
         }
-        String filename = FileUploadUtil.uploadFile(multipartFile);
-        return Result.success(filename,"图片上传成功");
+        //上传图片
+        String fileUrl = AliyunOSSUtil.upload(multipartFile, "qualify");
+        if (fileUrl ==null){
+            return Result.failed("上传失败");
+        }
+        return Result.success(fileUrl,"图片上传成功");
     }
 
     /**

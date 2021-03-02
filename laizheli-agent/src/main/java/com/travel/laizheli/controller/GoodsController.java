@@ -7,6 +7,7 @@ import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Scheduling;
 import com.travel.laizheli.service.CommentService;
 import com.travel.laizheli.service.GoodsService;
+import com.travel.laizheli.util.AliyunOSSUtil;
 import com.travel.laizheli.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,8 +155,12 @@ public class GoodsController {
         if (multipartFile==null){
             return Result.validateFailed("获取文件错误,请重新选择文件");
         }
-        String filename = FileUploadUtil.uploadFile(multipartFile);
-        return Result.success(filename,"图片上传成功");
+        //上传图片
+        String fileUrl = AliyunOSSUtil.upload(multipartFile, "goods");
+        if (fileUrl ==null){
+            return Result.failed("上传失败");
+        }
+        return Result.success(fileUrl,"图片上传成功");
     }
 
     /**
@@ -168,7 +173,7 @@ public class GoodsController {
             return Result.validateFailed("商品信息为空");
         }
         log.info("收到的商品为："+goods);
-        // 设置商品其他属性
+        // 初始化商品其他属性
         goods.setScore(0.0);
         goods.setState("1");
         goods.setSold(0);

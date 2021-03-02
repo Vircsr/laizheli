@@ -16,3 +16,11 @@ mybatis-plus:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
+
+# OSS  阿里云对象存储服务
+oos:
+  file:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    keyid: LTAI4GAy8TWyssgboFqMBstR
+    keysecret: qBDEQLrLJe09W47IuuTphiKlx5XPDV
+    bucketname: laizheli
