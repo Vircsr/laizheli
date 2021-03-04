@@ -12,6 +12,19 @@ spring:
       enabled: true  #开启文件上传
       max-file-size: 10MB  #限制文件上传大小为10MB
 
+  # redis配置
+  redis:
+    database: 0
+    port: 6379
+    host: 127.0.0.1
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 1000
+# mybatis-lus配置
 mybatis-plus:
   mapper-locations:
     - classpath:mapper/*.xml
@@ -20,4 +33,7 @@ mybatis-plus:
 # OSS  阿里云对象存储服务
 oos:
   file:
-
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    keyid: LTAI4GAy8TWyssgboFqMBstR
+    keysecret:
+    bucketname: laizheli

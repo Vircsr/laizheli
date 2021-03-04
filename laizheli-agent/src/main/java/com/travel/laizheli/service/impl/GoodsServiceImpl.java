@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.entity.Goods;
+import com.travel.laizheli.entity.result.GoodsTop;
 import com.travel.laizheli.mapper.GoodsMapper;
 import com.travel.laizheli.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,14 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int updateGoods(Goods goods) {
         return goodsMapper.updateById(goods);
+    }
+
+    /**
+     * @Description: 获取销量前5的商品
+    **/
+    @Override
+    public List<GoodsTop> getTop() {
+        return goodsMapper.getTop();
     }
 
 

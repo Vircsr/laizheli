@@ -2,6 +2,7 @@ package com.travel.laizheli.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.travel.laizheli.entity.Goods;
+import com.travel.laizheli.entity.result.GoodsTop;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface GoodsService {
     int addGoods(Goods goods);
 
     int updateGoods(Goods goods);
+
+    List<GoodsTop> getTop();
 }

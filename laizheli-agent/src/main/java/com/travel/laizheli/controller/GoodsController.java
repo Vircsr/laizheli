@@ -5,18 +5,25 @@ import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.entity.Comment;
 import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Scheduling;
+import com.travel.laizheli.entity.result.GoodsTop;
 import com.travel.laizheli.service.CommentService;
 import com.travel.laizheli.service.GoodsService;
 import com.travel.laizheli.util.AliyunOSSUtil;
 import com.travel.laizheli.util.FileUploadUtil;
+import javafx.beans.binding.ObjectExpression;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundListOperations;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName: GoodsController
@@ -35,6 +42,9 @@ public class GoodsController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * @Description: 获取各类商品的总数
@@ -203,6 +213,29 @@ public class GoodsController {
         }else {
             return Result.failed("更新商品信息失败");
         }
+    }
+
+    /**
+     * @Description: 获取热门景点top5
+    **/
+    @GetMapping("/hotspot")
+    public Result hotspot(){
+        ListOperations listOperations = redisTemplate.opsForList();
+        Boolean hotspot = redisTemplate.hasKey("hotspot");
+        List<GoodsTop> goodsTopList;
+        // 如果存在
+        if (hotspot){
+            // 直接从redis获取
+            goodsTopList = listOperations.range("hotspot", 0, -1);
+            log.info("redis中有数据，直接从redis获取");
+            // goodsTopList.forEach(item -> System.out.println(item.getId()+item.getName()+item.getCount()));
+        }else {
+            log.info("redis中没有数据，重新获取并写入redis，过期时间为1小时");
+            goodsTopList =  goodsService.getTop();
+            listOperations.rightPushAll("hotspot",goodsTopList) ;
+            listOperations.getOperations().boundListOps("hotspot").expire(30, TimeUnit.MINUTES);
+        }
+        return Result.success(goodsTopList,"成功获取top5");
     }
 
 

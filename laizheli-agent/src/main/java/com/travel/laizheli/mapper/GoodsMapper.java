@@ -2,6 +2,9 @@ package com.travel.laizheli.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.travel.laizheli.entity.Goods;
+import com.travel.laizheli.entity.result.GoodsTop;
+
+import java.util.List;
 
 /**
  * @ClassName: GoodsMapper
@@ -11,4 +14,6 @@ import com.travel.laizheli.entity.Goods;
  * @Version: 1.0
  **/
 public interface GoodsMapper extends BaseMapper<Goods> {
+
+    List<GoodsTop> getTop();
 }

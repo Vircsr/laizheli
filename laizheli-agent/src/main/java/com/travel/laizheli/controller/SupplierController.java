@@ -8,6 +8,7 @@ import com.travel.laizheli.service.LoginLogService;
 import com.travel.laizheli.service.SupplierService;
 import com.travel.laizheli.util.FileUploadUtil;
 import com.travel.laizheli.util.IpUtil;
+import com.travel.laizheli.util.JWTUtil;
 import com.travel.laizheli.util.OsAndBrowserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Base64;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @ClassName: SupplierController
@@ -48,7 +47,14 @@ public class SupplierController {
         log.info("查询结果为"+supplierGet);
         if (supplierGet != null)
         {
-            return Result.success(supplierGet,"登录成功");
+            String token = JWTUtil.sign(supplierGet.getId());
+            if (token == null){
+                return Result.success(null,"登录成功，获取token失败");
+            }
+            Map<String,Object> map = new HashMap<>();
+            map.put("token",token);
+            map.put("userInfo",supplierGet);
+            return Result.success(map,"登录成功");
         } else
         {
             return Result.failed(" 用户名和密码不匹配");
