@@ -3,6 +3,7 @@ package com.travel.laizheli.entity;
 
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,9 @@ import java.util.Date;
 public class Orders {
 
   private long id;
-  private long goodsId;
-  private String userId;
-  private String supplierId;
+  private long goodsId; // 商品id
+  private String userId;  // 用户id
+  private String supplierId;  // 供应商id
   private long adultSum;
   private long childSum;
   private long contactId;
@@ -31,6 +32,8 @@ public class Orders {
   private int state;
   private BigDecimal totalPrice;
   private BigDecimal discount;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private Date startDate;
   private int helpNum;
 

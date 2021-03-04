@@ -1,5 +1,6 @@
 package com.travel.laizheli.controller;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.common.api.Result;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -155,6 +157,30 @@ public class OrdersController {
             return Result.failed();
         }
     }
+
+    @PostMapping("/order/{userId}/{goodsId}/{supplierId}")
+    public Result addOrder(@PathVariable String userId, @PathVariable long goodsId, @PathVariable String supplierId, @RequestBody Orders order) {
+
+        order.setUserId(userId);
+        order.setGoodsId(goodsId);
+        order.setSupplierId(supplierId);
+
+        // 设置创建时间
+        order.setCreateTime(DateTime.now());
+
+        // 设置折扣
+        order.setDiscount(new BigDecimal(0));
+
+
+
+        boolean save = ordersService.save(order);
+        if (save) {
+            return Result.success(null);
+        } else {
+            return Result.failed();
+        }
+    }
+
 
     /**
      * 消息提醒，获取前一周内出发的日期
