@@ -81,6 +81,9 @@ public class OrdersController {
 //        log.info("-------------------传输信息：" + orderDtoPage.getRecords().toString());
         if (orderListDtos != null) {
             orderListDtos.forEach(System.out::println);
+
+            // 倒序
+            Collections.reverse(orderListDtos);
             return Result.success(orderListDtos);
         } else {
             return Result.failed();
