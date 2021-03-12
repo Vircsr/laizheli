@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.dto.NoticeInfo;
 import com.travel.laizheli.dto.OrderListDto;
+import com.travel.laizheli.entity.Collection;
 import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Orders;
 import com.travel.laizheli.entity.Supplier;
@@ -225,7 +226,10 @@ public class OrdersController {
         ca.setTime(now);
         ca.add(Calendar.DATE,7);
         Date aWeek = ca.getTime();
-        return ordersService.selectNoticeList(userId,now,aWeek);
+
+        List<NoticeInfo> noticeInfos = ordersService.selectNoticeList(userId, now, aWeek);
+        Collections.reverse(noticeInfos);
+        return noticeInfos;
     }
 
 }
