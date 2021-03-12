@@ -66,4 +66,17 @@ public class HistoryService implements IHistorySercvice {
             return null;
         }
     }
+
+    /**
+     * 获取历史访问个人总条数
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public Integer getHistoryCount(String userId) {
+        QueryWrapper<History> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        return historyMapper.selectCount(wrapper);
+    }
 }

@@ -11,4 +11,5 @@ public interface IHistorySercvice {
     IPage<History> getHistoryList(Integer current,Integer size,String id);
     String saveHistory(History history);;
     String deleteHistory(String id);
+    Integer getHistoryCount(String userId);
 }

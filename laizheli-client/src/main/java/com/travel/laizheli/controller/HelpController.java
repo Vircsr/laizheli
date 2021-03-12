@@ -69,6 +69,10 @@ public class HelpController {
         if (ordersById.getUserId().equals(userId)) {
             return Result.failed("本人不可以助力哦，快邀请您的好友吧！");
         }
+        // 判断助力人数是否已满，如果是，则不可以助力
+        if (ordersById.getHelpNum() >= 5) {
+            return Result.failed("助力人数已满了哦，请下次再来吧~");
+        }
 
         queryWrapper.eq("order_id", orderId);
 
