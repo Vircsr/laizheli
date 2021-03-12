@@ -2,12 +2,16 @@ package com.travel.laizheli.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.travel.laizheli.entity.Orders;
+import com.travel.laizheli.entity.result.SumMonth;
 import com.travel.laizheli.mapper.OrderMappper;
 import com.travel.laizheli.service.OrderService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,6 +100,55 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int deleteByid(Integer id) {
         return orderMappper.deleteById(id);
+    }
+
+    /**
+     * @Description: 根据商品类型获取销售额
+     * @Param: type
+    **/
+    @Override
+    public BigDecimal getSumBy(String type) {
+        return orderMappper.getSumBy(type);
+    }
+
+    /**
+     * @Description: 查找销售额
+    **/
+    @Override
+    public List<BigDecimal> getSumMonth() {
+        // 获取当前月份
+        int month = LocalDate.now().getMonthValue()-1;
+        ArrayList<BigDecimal> result = new ArrayList<>();
+        result.add(new BigDecimal("0"));
+        result.add(new BigDecimal("0"));
+        result.add(new BigDecimal("0"));
+        result.add(new BigDecimal("0"));
+        result.add(new BigDecimal("0"));
+        List<SumMonth> list;
+        list = orderMappper.getSumMonth();
+        for (SumMonth item : list) {
+            if (item.getCreateTime().getMonth()==(month+12)%12){
+                result.set(4,result.get(4).add(item.getSum()));
+            }
+            if (item.getCreateTime().getMonth()==(month-1+12)%12){
+                result.set(4,result.get(4).add(item.getSum()));
+            }
+            if (item.getCreateTime().getMonth()==(month-2+12)%12){
+                result.set(2,result.get(2).add(item.getSum()));
+            }
+            if (item.getCreateTime().getMonth()==(month-3+12)%12){
+                result.set(1,result.get(1).add(item.getSum()));
+            }
+            if (item.getCreateTime().getMonth()==(month-4+12)%12){
+                result.set(0,result.get(0).add(item.getSum()));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public BigDecimal getAllSale(String supplierId) {
+        return orderMappper.getAllSale(supplierId);
     }
 
 }

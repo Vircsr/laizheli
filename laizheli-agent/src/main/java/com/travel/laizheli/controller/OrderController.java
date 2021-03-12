@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -76,25 +77,25 @@ public class OrderController {
             int sun = 0;
             for (int j = 0; j < ordersInland.size(); j++) {
                 if (ordersInland.get(j).getCreateTime().getMonth()+1==month){
-                    if (ordersInland.get(j).getCreateTime().getDay()==0){
+                    if (ordersInland.get(j).getCreateTime().getDay()==1){
                         mon++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==1){
+                    if (ordersInland.get(j).getCreateTime().getDay()==2){
                         tues++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==2){
+                    if (ordersInland.get(j).getCreateTime().getDay()==3){
                         wed++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==3){
+                    if (ordersInland.get(j).getCreateTime().getDay()==4){
                         thur++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==4){
+                    if (ordersInland.get(j).getCreateTime().getDay()==5){
                         fri++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==5){
+                    if (ordersInland.get(j).getCreateTime().getDay()==6){
                         sat++;
                     }
-                    if (ordersInland.get(j).getCreateTime().getDay()==6){
+                    if (ordersInland.get(j).getCreateTime().getDay()==7 ){
                         sun++;
                     }
                 }
@@ -221,6 +222,7 @@ public class OrderController {
             Map<String,Object> map = new HashMap<>();
             map.put("data",ordersList);
             map.put("total",count);
+            map.put("sum",orderService.getAllSale(supplierId));
             return Result.success(map,"成功获取订单列表");
         }else {
             return Result.failed("获取订单列表失败");
@@ -280,6 +282,41 @@ public class OrderController {
             return Result.failed("更新失败");
         }
         return Result.success(null,"成功更新");
+    }
+
+    /**
+     * @Description:  获取各类产品销售额
+    **/
+    @GetMapping("/sumType")
+    public Result getSumBy(){
+        ArrayList<BigDecimal> result = new ArrayList<>();
+        for (int i = 1; i < 5; i++) {
+            result.add(orderService.getSumBy(String.valueOf(i)));
+        }
+        return Result.success(result,"成功获取各类产品销售额");
+    }
+
+    /**
+     * @Description: 获取最近5个月销售额
+    **/
+    @GetMapping("/sumMonth")
+    public Result getSumByMonth(){
+        Map<String,Object> map = new HashMap<String,Object>();
+        // 获取折线数据
+        List<BigDecimal> sumMonth = orderService.getSumMonth();
+        if (sumMonth == null){
+            return Result.failed("获取近5月销售额数据失败");
+        }
+        List<String> labels = new ArrayList<String>();
+        // 设置显示月份
+        int month = LocalDate.now().getMonthValue()-1;
+        for(int i=4;i>=0;i--){
+            labels.add(String.valueOf((month+12-i)%12+1)+"月");
+        }
+        map.put("data",sumMonth);
+        map.put("labels",labels);
+
+        return Result.success(map,"成功获取近5月销售额数据");
     }
     
 }

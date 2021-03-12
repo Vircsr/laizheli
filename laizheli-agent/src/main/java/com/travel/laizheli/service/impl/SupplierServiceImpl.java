@@ -24,7 +24,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Supplier getByNamePwd(String name,String password) {
         QueryWrapper<Supplier> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("id","name","icon_url","last_login_time","account");
+        queryWrapper.select("id","name","icon_url","last_login_time","account","state");
         queryWrapper.eq("name",name);
         queryWrapper.eq("password",password);
         return supplierMapper.selectOne(queryWrapper);

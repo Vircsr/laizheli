@@ -1,7 +1,9 @@
 package com.travel.laizheli.service;
 
 import com.travel.laizheli.entity.Orders;
+import com.travel.laizheli.entity.result.SumMonth;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,4 +28,10 @@ public interface OrderService {
     Orders getById(Integer id);
 
     int deleteByid(Integer id);
+
+    BigDecimal getSumBy(String type);
+
+    List<BigDecimal> getSumMonth();
+
+    BigDecimal getAllSale(String supplierId);
 }

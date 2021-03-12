@@ -45,8 +45,10 @@ public class SupplierController {
     {
         Supplier supplierGet = supplierService.getByNamePwd(name,password);
         log.info("查询结果为"+supplierGet);
-        if (supplierGet != null)
-        {
+        if (supplierGet != null) {
+            if(supplierGet.getState() == 0){
+                return Result.failed("您的账号已经被禁用了，请联系管理员查明原因");
+            }
             String token = JWTUtil.sign(supplierGet.getId());
             if (token == null){
                 return Result.success(null,"登录成功，获取token失败");
@@ -190,5 +192,13 @@ public class SupplierController {
             return Result.failed("提现失败");
         }
         return Result.success(null,"提现成功");
+    }
+    
+    /**
+     * @Description: token验证请求 
+    **/        
+    @GetMapping("/test")
+    public Result testToken(){
+        return Result.success(null,"token验证通过");
     }
 }

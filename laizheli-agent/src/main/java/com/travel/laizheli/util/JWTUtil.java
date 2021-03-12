@@ -19,7 +19,7 @@ import java.util.HashMap;
  **/
 public class JWTUtil {
     // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5 * 60 * 60 * 1000;
+    private static final long EXPIRE_TIME = 30 * 60 * 1000; // 分钟
     // jwt 密钥
     private static final String SECRET = "jwt_secret";
 

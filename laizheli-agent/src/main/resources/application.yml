@@ -35,5 +35,5 @@ oos:
   file:
     endpoint: oss-cn-hangzhou.aliyuncs.com
     keyid: LTAI4GAy8TWyssgboFqMBstR
-    keysecret:
+    keysecret: qBDEQLrLJe09W47IuuTphiKlx5XPDV
     bucketname: laizheli

@@ -230,10 +230,10 @@ public class GoodsController {
             log.info("redis中有数据，直接从redis获取");
             // goodsTopList.forEach(item -> System.out.println(item.getId()+item.getName()+item.getCount()));
         }else {
-            log.info("redis中没有数据，重新获取并写入redis，过期时间为1小时");
+            log.info("redis中没有数据，重新获取并写入redis，过期时间为1分钟");
             goodsTopList =  goodsService.getTop();
             listOperations.rightPushAll("hotspot",goodsTopList) ;
-            listOperations.getOperations().boundListOps("hotspot").expire(30, TimeUnit.MINUTES);
+            listOperations.getOperations().boundListOps("hotspot").expire(1, TimeUnit.MINUTES);
         }
         return Result.success(goodsTopList,"成功获取top5");
     }

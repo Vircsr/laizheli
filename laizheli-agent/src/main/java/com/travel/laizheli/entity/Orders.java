@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,8 +35,8 @@ public class Orders implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
     private Integer state;
-    private Double totalPrice;
-    private Double discount;
+    private BigDecimal totalPrice;
+    private BigDecimal discount;
     private String startDate;
     private Integer helpNum;
     @TableField(exist = false)

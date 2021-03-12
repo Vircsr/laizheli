@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Select;
  **/
 public interface HistoryMapper {
 
-    @Select("select count(*) from orders join goods on orders.goods_id = goods.id where goods.supplier_id = #{supplierId}")
+    @Select("select count(*) from history join goods on history.goods_id = goods.id where goods.supplier_id = #{supplierId}")
     int getCount(String supplierId);
 }
