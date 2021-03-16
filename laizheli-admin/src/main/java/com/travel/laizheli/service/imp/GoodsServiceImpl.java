@@ -1,6 +1,7 @@
 package com.travel.laizheli.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.laizheli.dao.GoodsDao;
@@ -97,5 +98,24 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int delete(Integer goodsId) {
         return goodsDao.deleteById(goodsId);
+    }
+
+    /**
+     * @Description: 更新商品状态
+     * @Param: goods
+     * @Param: state 
+    **/        
+    @Override
+    public int updateState(Goods goods) {
+        return goodsDao.updateById(goods);
+    }
+
+    /**
+     * @Description: 根据ID查询商品
+     * @Param: goodsId 
+    **/        
+    @Override
+    public Goods findById(Integer goodsId) {
+        return goodsDao.selectById(goodsId);
     }
 }

@@ -21,4 +21,8 @@ public interface GoodsService {
     //IPage<Goods> getListByQuery(Integer current, Integer size, String goodsId, String supplierId, String name, String state, String type);
 
     int delete(Integer goodsId);
+
+    int  updateState(Goods goods);
+
+    Goods findById(Integer goodsId);
 }

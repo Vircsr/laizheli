@@ -2,6 +2,7 @@ package com.travel.laizheli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mysql.cj.protocol.x.ReusableInputStream;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.entity.Goods;
 import com.travel.laizheli.entity.Qualification;
@@ -66,6 +67,30 @@ public class GoodsController {
         }else {
             return Result.failed("删除商品失败");
         }
+    }
+
+    /**
+     * @Description: 更新商品状态
+     * @Param: goodsId
+     * @Param: state 
+    **/
+    @PostMapping("/update")
+    public Result updateState(@RequestParam("goodsId")Integer goodsId,
+                              @RequestParam("state")String state){
+        if (goodsId==null){
+            return Result.failed("获取商品ID失败");
+        }
+        Goods goods = goodsService.findById(goodsId);
+        if(goods == null){
+            return Result.failed("商品ID无效");
+        }
+        goods.setState(state);
+        int result = goodsService.updateState(goods);
+        if(result != 1){
+            return Result.failed("更新失败");
+        }
+        return Result.success(null,"更新成功");
+
     }
 
 }
