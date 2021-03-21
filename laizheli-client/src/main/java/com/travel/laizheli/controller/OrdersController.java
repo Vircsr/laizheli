@@ -59,6 +59,7 @@ public class OrdersController {
             map.put("state", state);
         }
         queryWrapper.allEq(map);
+        queryWrapper.orderByDesc("create_time");
         // 1. 找到对应的订单
         Page<Orders> ordersPage = ordersService.page(page, queryWrapper);
         ordersPage.getRecords().forEach(orders -> {
@@ -84,7 +85,7 @@ public class OrdersController {
             orderListDtos.forEach(System.out::println);
 
             // 倒序
-            Collections.reverse(orderListDtos);
+//            Collections.reverse(orderListDtos);
             return Result.success(orderListDtos);
         } else {
             return Result.failed();
@@ -200,6 +201,7 @@ public class OrdersController {
         Date aWeek = ca.getTime();
         QueryWrapper<Orders> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id",userId).between("start_date",now,aWeek);
+        wrapper.orderByDesc("create_time");
         return ordersService.getBaseMapper().selectList(wrapper);
     }
     /**

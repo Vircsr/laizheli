@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.travel.laizheli.common.api.Result;
 import com.travel.laizheli.entity.Help;
 import com.travel.laizheli.entity.Orders;
+import com.travel.laizheli.entity.User;
 import com.travel.laizheli.service.IHelpService;
 import com.travel.laizheli.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +33,25 @@ public class HelpController {
 
 
     /**
-     * 通过订单id获取所有助力的用户id
+     * 通过订单id获取所有助力的信息
      * @param orderId 订单id
      * @return
      */
-    @GetMapping("/users/{orderId}")
-    public Result getUsersIdByOrderId(@PathVariable long orderId) {
+    @GetMapping("/help/{orderId}")
+    public Result getHelpByOrderId(@PathVariable long orderId) {
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("order_id", orderId);
-        List users = helpService.list(queryWrapper);
+        List<User> help = helpService.list(queryWrapper);
 
-        if (users != null) {
-            return Result.success(users);
+        if (help != null) {
+            return Result.success(help);
         } else {
             return Result.failed();
         }
     }
+
+
 
     /**
      * 添加助力，助力金额范围默认为0~10元

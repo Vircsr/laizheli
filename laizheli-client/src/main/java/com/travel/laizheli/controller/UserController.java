@@ -50,6 +50,23 @@ public class UserController {
     }
 
     /**
+     * 根据用户id获取到用户信息
+     * @param id
+     * @return  用户
+     */
+    @GetMapping("/user")
+    public Result getUser(@PathVariable String id) {
+        User userById = userService.getUserById(id);
+        log.info("******查询结果：" + userById);
+
+        if (userById != null) {
+            return Result.success(userById);
+        } else {
+            return Result.failed();
+        }
+    }
+
+    /**
      * 每当用户登录的时候，添加登录日志
      * @param loginLog
      * @return
